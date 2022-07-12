@@ -10,4 +10,13 @@ manifest_hash = ""
 packagetype = "Zip"
 functions = ["CreateItemFunction"]
 
+[function_build_definitions.3d730cab-a87c-4c20-8073-da439741ab33]
+codeuri = "C:\\Users\\user\\Desktop\\New folder (2)\\AWS Lambda\\Basic CRUD\\item-api\\src\\return_items"
+runtime = "python3.9"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["ListItemsFunction"]
+
 [layer_build_definitions]

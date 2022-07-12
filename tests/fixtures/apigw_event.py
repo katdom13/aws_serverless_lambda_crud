@@ -6,8 +6,12 @@ import json
 def apigw_event(request):
     """Generates API GW Event"""
 
+    body = request.param.get("body", "")
+    if body:
+        body = json.dumps(body)
+
     return {
-        "body": json.dumps(request.param["body"]),
+        "body": body,
         "resource": request.param["resource"],
         "headers": {
             "Via": "1.1 08f323deadbeefa7af34d5feb414ce27.cloudfront.net (CloudFront)",

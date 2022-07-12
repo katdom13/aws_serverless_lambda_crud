@@ -26,3 +26,14 @@ def test_create_item_api_gateway(get_api_endpoint):
     """
     response = requests.post(root + "/items", json=data)
     assert response.status_code == 201
+
+
+def test_list_items_api_gateway(get_api_endpoint):
+    # pass
+    root = get_api_endpoint
+
+    """
+    Call the API Gateway endpoint and check the response
+    """
+    response = requests.get(root + "/items")
+    assert response.status_code == 200
