@@ -1,21 +1,14 @@
-# import json
-
 import pytest
+import json
 
-from src.create_item import app
 
-
-@pytest.fixture()
-def apigw_event():
+@pytest.fixture(scope="function")
+def apigw_event(request):
     """Generates API GW Event"""
 
     return {
-        "body": '{"name": "Owl3", "description": "A bird", "price": "3.00", "is_active": "True"}',
-        "resource": "/items",
-        "requestContext": {
-            "resourcePath": "/items",
-            "httpMethod": "POST",
-        },
+        "body": json.dumps(request.param["body"]),
+        "resource": request.param["resource"],
         "headers": {
             "Via": "1.1 08f323deadbeefa7af34d5feb414ce27.cloudfront.net (CloudFront)",
             "Accept-Language": "en-US,en;q=0.8",
@@ -36,16 +29,5 @@ def apigw_event():
             "CloudFront-Forwarded-Proto": "https",
             "Accept-Encoding": "gzip, deflate, sdch",
         },
-        "httpMethod": "POST",
+        "httpMethod": request.param["httpMethod"],
     }
-
-
-def test_lambda_handler(apigw_event):
-
-    ret = app.lambda_handler(apigw_event, "")
-    # data = json.loads(ret["body"])
-
-    assert ret["statusCode"] == 201
-    assert "id" in ret["body"]
-    # assert data["message"] == "hello world"
-    # assert "location" in data.dict_keys()
